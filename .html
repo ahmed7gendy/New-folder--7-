@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>قائمة الأشخاص</title>
+    <style>
+		body{
+			background-color: antiquewhite;
+		}
+		input[type=text], input[type=email] {
+		  width: 100%;
+		  padding: 12px 20px;
+		  margin: 8px 0;
+		  box-sizing: border-box;
+		  border: 2px solid #228592;
+		  border-radius: 4px;
+		}
+		input[type=submit] {
+		  width: 100%;
+		  background-color: #abcaad;
+		  color: rgb(52, 117, 143);
+		  padding: 14px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  border-radius: 4px;
+		  cursor: pointer;
+		}
+		button{
+background-color: #c70c9e;
+width: 100px;
+height: 60px;
+margin: 8px 0;
+border-radius: 4px;
+		}
+		table{
+			background-color: #abcaad;
+width: 50%;
+margin: auto;
+
+		}
+		th{
+			margin:100px;
+		}
+	</style>
+  </head>
+  <body>
+    <h1>قائمة الأشخاص</h1>
+    <input type="text" id="search-first-name" placeholder="الاسم الأول">
+    <input type="text" id="search-last-name" placeholder="الاسم الأخير">
+    <input type="text" id="search-email" placeholder="البريد الإلكتروني">
+
+    <table>
+      <thead>
+        <tr>
+          <th>الاسم الأول</th>
+          <th>الاسم الأخير</th>
+          <th>البريد الإلكتروني</th>
+        </tr>
+        
+      </thead>
+      <tbody id="table-body">
+      </tbody>
+    </table>
+    <button onclick="search()">بحث</button>
+    <script>
+      const data = [{
+        "first_name": "Kristian",
+        "last_name": "Ripping",
+        "email": "kripping0@hexun.com"
+      }, {
+        "first_name": "Wittie",
+        "last_name": "Flexman",
+        "email": "wflexman1@sogou.com"
+      }, {
+        "first_name": "Lorianne",
+        "last_name": "Lansbury",
+        "email": "llansbury2@delicious.com"
+      }, {
+        "first_name": "Debor",
+        "last_name": "Crumbie",
+        "email": "dcrumbie3@shareasale.com"
+      }, {
+        "first_name": "Quinn",
+        "last_name": "Zimmermanns",
+        "email": "qzimmermanns4@cnn.com"
+      }, {
+        "first_name": "Kasper",
+        "last_name": "Lindholm",
+        "email": "klindholm5@fastcompany.com"
+      }, {
+        "first_name": "Eldredge",
+        "last_name": "Witcherley",
+        "email": "ewitcherley6@elegantthemes.com"
+      }, {
+        "first_name": "Randolph",
+        "last_name": "McKmurrie",
+        "email": "rmckmurrie7@yelp.com"
+      }, {
+        "first_name": "Jenny",
+        "last_name": "Novakovic",
+        "email": "jnovakovic8@sina.com.cn"
+      }, {
+        "first_name": "Talyah",
+        "last_name": "Bruyns",
+        "email": "tbruyns9@army.mil"
+      }, {
+        "first_name": "Barton",
+        "last_name": "Sanchis",
+        "email": "bsanchisa@reference.com"
+      }, {
+        "first_name": "Norah",
+        "last_name": "Adran",
+        "email": "nadranb@yale.edu"
+      }, {
+        "first_name": "Christophe",
+        "last_name": "Hyder",
+        "email": "chyderc@ask.com"
+      }, {
+        "first_name": "Eugine",
+        "last_name": "Petronis",
+        "email": "epetronisd@uol.com.br"
+      }, {
+        "first_name": "Chaddie",
+        "last_name": "Linney",
+        "email": "clinneye@google.ru"
+      }, {
+        "first_name": "Kathlin",
+        "last_name": "Freeborne",
+        "email": "kfreebornef@toplist.cz"
+      }, {
+        "first_name": "Vinni",
+        "last_name": "Bretland",
+        "email": "vbretlandg@storify.com"
+      }, {
+        "first_name": "Caitrin",
+        "last_name": "Alster",
+        "email": "calsterh@hatena.ne.jp"
+      }, {
+        "first_name": "Lyssa",
+        "last_name": "Fyldes",
+        "email": "lfyldesi@digg.com"
+      }, {
+        "first_name": "Maggy",
+        "last_name": "Burberye",
+        "email": "mburberyej@vkontakte.ru"
+      }];
+
+      const tableBody = document.getElementById('table-body');
+
+      function createRow(firstName, lastName, email) {
+        const row = document.createElement('tr');
+        const firstNameCell = document.createElement('td');
+        const lastNameCell = document.createElement('td');
+        const emailCell = document.createElement('td');
+        firstNameCell.textContent = firstName;
+        lastNameCell.textContent = lastName;
+        emailCell.textContent = email;
+        row.appendChild(firstNameCell);
+        row.appendChild(lastNameCell);
+        row.appendChild(emailCell);
+        tableBody.appendChild(row);
+      }
+
+      function search() {
+        const searchFirstName = document.getElementById('search-first-name').value.toLowerCase();
+        const searchLastName = document.getElementById('search-last-name').value.toLowerCase();
+        const searchEmail = document.getElementById('search-email').value.toLowerCase();
+        tableBody.innerHTML = '';
+        data.forEach(person => {
+          const firstName = person.first_name.toLowerCase();
+          const lastName = person.last_name.toLowerCase();
+          const email = person.email.toLowerCase();
+          if (firstName.includes(searchFirstName) && lastName.includes(searchLastName) && email.includes(searchEmail)) {
+            createRow(person.first_name, person.last_name, person.email);
+          }
+        });
+      }
+
+      data.forEach(person => {
+        createRow(person.first_name, person.last_name, person.email);
+      });
+    </script>
+  </body>
+</html>
